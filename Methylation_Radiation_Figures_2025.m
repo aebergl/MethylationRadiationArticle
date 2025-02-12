@@ -1,25 +1,55 @@
 % Script for creating all individual graphs for "A dysregulated methylome modulates the radiosensitivity of cancer" article
 % Panel figures are then created in Affinity Designer from the individual graphs.
 % Anders Berglund 2024
-%%
+%% Directory paths
 
-% Please change this acordingle to where you have downloaded the data
-BaseDir= "/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/";
-ResultDir "RESULTS"
+% Please change this accordingly to where you have downloaded the data
+BaseDir         = "/Users/berglund.anders/Documents/RadiationArticleData";
+ResultDir       = "ResultFiles";
 
-PanelFigDir =
+PanelFigDir     = "/Users/berglund.anders/Documents/RadiationArticleData/PanelFigures";
+%% Figure Seetings
+
+png_res = 600;
+
+
+%% Check that necessary funcions are available
+
+if ~exist('GetPalette','file')
+    error("Please download GetPalette.m from https://github.com/aebergl/AEB_COLOR and add it to the path") 
+end
+if ~exist('VolcanoPlotResults','file')
+    error("Please download VolcanoPlotResults.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
+
+if ~exist('DensScat','file')
+    error("Please download DensScat.m from https://github.com/aebergl/DensScat and add it to the path") 
+end
+
 
 %% Figure 1
+FigureDir = "Figure_01";
+%Create Figure_01 directory
+[status, Msg] = mkdir(PanelFigDir,FigureDir);
+if ~status
+    error('Could not create %s, reason: %s',FigureDir,Msg)
+end
 
 % Figure 1a
 
 % load pre calculated PCA model and Groups 
-load(fullfile(BaseDir,ResultDir,"PanCan_Results","PCA_ALL_50.mat"))
-load(fullfile(BaseDir,ResultDir,"PanCan_Results","Group.mat"))
+load(fullfile(BaseDir,ResultDir,"PCA_ALL_50.mat"))
+load(fullfile(BaseDir,ResultDir,"Group.mat"))
+
+% Update name for HNSC
+Group = strrep(Group,'HNSC HPV- NoRT','HPV(-)HNSCC NoRT');
+Group = strrep(Group,'HNSC HPV- RT','HPV(-)HNSCC RT');
+Group = strrep(Group,'HNSC HPV+ RT','HPV(+)HNSCC RT');
 
 %Calculate t-SNE model
 rng('default')
 Ytsne = tsne(PCA_ALL_50.T,'Algorithm','exact','NumPCAComponents',0,'Perplexity',30);
+% Create figure
 CMap = [GetPalette('Tab20',[2 1]);[ 0 0 0];GetPalette('Tab20',[4 3 6 5 8 7 10 9 14 13 16 15 18 17 20 19])];
 nx=1;ny=2;
 fh=figure('Name','Scatter Plot','Color','w','Tag','Bar Plot','Units','inches');
@@ -45,22 +75,28 @@ ah.YTick=[];
 ah.XLabel.String = 't-SNE 1';
 ah.YLabel.String = 't-SNE 2';
 ah.Position=[0.0340    0.0869    0.7222    0.9035];
-fh.Children(1).Position = [0.6702    0.1997    0.3412    0.8015];
-exportgraphics(gcf,'tSNE_All_Samples.pdf')
-exportgraphics(gcf,'tSNE_All_Samples.png','Resolution',600)
+fh.Children(1).Position = [0.6702    0.175    0.3412    0.8015];
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1a_tSNE_All_Samples.pdf'));
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1a_tSNE_All_Samples.png'),'Resolution',png_res)
+close(fh)
+clear PCA_ALL_50 Group status Msg CMap Ytsne nx ny fh ah gh nudgeY nudgeX hCopy i 
+
 
 % Figure 1b Volcano Plots
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat')
+% Load Result files
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat"))
 
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_NoRT_411_PFI.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_RT_59_PFI.mat')
+load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_NoRT_411_PFI.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_RT_59_PFI.mat"))
 
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_NoRT_351_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_RT_67_DSS.mat')
+load(fullfile(BaseDir,ResultDir,"RESULTS_SKCM_M450_NoRT_351_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_SKCM_M450_RT_67_DSS.mat"))
 
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_NoRT_362_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_RT_282_DSS.mat')
+load(fullfile(BaseDir,ResultDir,"RESULTS_BRCA_M450_NoRT_362_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_BRCA_M450_RT_282_DSS.mat"))
+
 
 PlotSize = [1.8 1.9];
 
@@ -68,53 +104,62 @@ PlotSize = [1.8 1.9];
 
 fh = VolcanoPlotResults(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
+
+
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.pdf'));
 fh.Renderer='painters';
-exportgraphics(fh.Children,'HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.pdf')
 exportgraphics(fh.Children,'HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.png','Resolution',600)
 
 fh = VolcanoPlotResults(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,PlotSize,'FontSize',7,'EqualXLim' );
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.png','Resolution',600)
 
 fh = VolcanoPlotResults(RESULTS_PRAD_M450_RT_59_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'PRAD_M450_RT_59_PFI_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'PRAD_M450_RT_59_PFI_Volcano_Plot.png','Resolution',600)
 
 fh = VolcanoPlotResults(RESULTS_PRAD_M450_NoRT_411_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'PRAD_M450_NoRT_411_PFI_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'PRAD_M450_NoRT_411_PFI_Volcano_Plot.png','Resolution',600)
 
 
 fh = VolcanoPlotResults(RESULTS_SKCM_M450_RT_67_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'SKCM_M450_RT_67_DSS_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'SKCM_M450_RT_67_DSS_Volcano_Plot.png','Resolution',600)
 
 
 fh = VolcanoPlotResults(RESULTS_SKCM_M450_NoRT_351_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'SKCM_M450_NoRT_351_DSS_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'SKCM_M450_NoRT_351_DSS_Volcano_Plot.png','Resolution',600)
 
 
 fh = VolcanoPlotResults(RESULTS_BRCA_M450_RT_282_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'BRCA_M450_RT_282_DSS_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'BRCA_M450_RT_282_DSS_Volcano_Plot.png','Resolution',600)
 
 fh = VolcanoPlotResults(RESULTS_BRCA_M450_NoRT_362_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-fh.Renderer='painters';
+
 exportgraphics(fh.Children,'BRCA_M450_NoRT_362_DSS_Volcano_Plot.pdf')
+fh.Renderer='painters';
 exportgraphics(fh.Children,'BRCA_M450_NoRT_362_DSS_Volcano_Plot.png','Resolution',600)
 
 % Figure 1c 
