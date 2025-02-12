@@ -102,138 +102,88 @@ PlotSize = [1.8 1.9];
 
 % Create Volcano Plots, highligthing top 1% of the CpG-probes
 
-fh = VolcanoPlotResults(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-
+fh.Renderer='painters';
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.pdf'));
-fh.Renderer='painters';
-exportgraphics(fh.Children,'HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_HNSC_M450_RT_HPV_Neg_187_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-fh = VolcanoPlotResults(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,PlotSize,'FontSize',7,'EqualXLim' );
+fh = VolcanoPlotResults(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop' );
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_HNSC_M450_NoRT_HPV_Neg_167_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-fh = VolcanoPlotResults(RESULTS_PRAD_M450_RT_59_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_PRAD_M450_RT_59_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'PRAD_M450_RT_59_PFI_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'PRAD_M450_RT_59_PFI_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_PRAD_M450_RT_59_PFI_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_PRAD_M450_RT_59_PFI_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-fh = VolcanoPlotResults(RESULTS_PRAD_M450_NoRT_411_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_PRAD_M450_NoRT_411_PFI,'HR coxreg PFI',0,'p coxreg PFI',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'PRAD_M450_NoRT_411_PFI_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'PRAD_M450_NoRT_411_PFI_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_PRAD_M450_NoRT_411_PFI_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_PRAD_M450_NoRT_411_PFI_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-
-fh = VolcanoPlotResults(RESULTS_SKCM_M450_RT_67_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_SKCM_M450_RT_67_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'SKCM_M450_RT_67_DSS_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'SKCM_M450_RT_67_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_SKCM_M450_RT_67_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_SKCM_M450_RT_67_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-
-fh = VolcanoPlotResults(RESULTS_SKCM_M450_NoRT_351_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_SKCM_M450_NoRT_351_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'SKCM_M450_NoRT_351_DSS_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'SKCM_M450_NoRT_351_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_SKCM_M450_NoRT_351_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_SKCM_M450_NoRT_351_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-
-fh = VolcanoPlotResults(RESULTS_BRCA_M450_RT_282_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_BRCA_M450_RT_282_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'BRCA_M450_RT_282_DSS_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'BRCA_M450_RT_282_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_BRCA_M450_RT_282_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_BRCA_M450_RT_282_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-fh = VolcanoPlotResults(RESULTS_BRCA_M450_NoRT_362_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim');
+fh = VolcanoPlotResults(RESULTS_BRCA_M450_NoRT_362_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop');
 fh.Children.Position=[0.02    0.15    0.96    0.78];
-
-exportgraphics(fh.Children,'BRCA_M450_NoRT_362_DSS_Volcano_Plot.pdf')
 fh.Renderer='painters';
-exportgraphics(fh.Children,'BRCA_M450_NoRT_362_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_BRCA_M450_NoRT_362_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1b_BRCA_M450_NoRT_362_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
 % Figure 1c 
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Pos_51_DSS.mat')
-PlotSize = [1.8 1.9];
-fh = VolcanoPlotResults(RESULTS_HNSC_M450_RT_HPV_Pos_51_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim' );
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Pos_51_DSS.mat"))
+fh = VolcanoPlotResults(RESULTS_HNSC_M450_RT_HPV_Pos_51_DSS,'HR coxreg DSS',0,'p coxreg DSS',2,'TopPrctile',99,'FigureSize',PlotSize,'FontSize',7,'EqualXLim','XlimCrop' );
 fh.Children.Position=[0.02    0.15    0.96    0.78];
 fh.Renderer='painters';
-exportgraphics(fh.Children,'HNSC_M450_RT_HPV_Pos_51_DSS_Volcano_Plot.pdf')
-exportgraphics(fh.Children,'HNSC_M450_RT_HPV_Pos_51_DSS_Volcano_Plot.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1c_HNSC_M450_RT_HPV_Pos_51_DSS_Volcano_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1c_HNSC_M450_RT_HPV_Pos_51_DSS_Volcano_Plot.png'),'Resolution',png_res)
+close(fh)
 
-% Figure 1d Density scatter plots comparing results across different cohorts
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat')
+% Figure 1d Comparing degree of methylation across all cohorts
 
-x= -log10(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.X(:,5));
-y = -log10(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.X(:,5));
-fh=figure('Name','Scatter Plot','Color','w','Tag','Bar Plot','Units','inches');
-fh.Position(3:4) = [2 2.1];
-ah = axes(fh,'NextPlot','add','tag','Scatter Plot','box','on','Layer','top','FontSize',6);
-ah.LineWidth = 0.5;
-DensScat(x,y,'ColorMap',colorcet('L08'),'TargetAxes',ah,'mSize',10);
-ah.XLim=[0 max(x)+0.2];
-ah.YLim=[0 max(y)+0.2];
-xlabel('HPV(−)HNSCC RT -log_1_0(p)')
-ylabel('HPV(−)HNSCC NoRT -log_1_0(p)')
-[r p]=corr(x,y,'Type','Pearson','Rows','pairwise');
-text(max(x),max(y),sprintf('r=%.2f',r),'HorizontalAlignment','right','VerticalAlignment','top','FontSize',6)
-fh.Renderer='painters';
-exportgraphics(fh,'HNSC_RT_vs_NoRT_p_values.pdf')
-exportgraphics(fh,'HNSC_RT_vs_NoRT_p_values.png','Resolution',300)
+load(fullfile(BaseDir,ResultDir,"RESULTS_SARC_M450_NoRT_178_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_SARC_M450_RT_59_DSS.mat"))
 
-% Figure 1e LGG
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_LGG_Radiation/RESULTS_2023/RESULTS_LGG_M450_NoRT_185_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_LGG_Radiation/RESULTS_2023/RESULTS_LGG_M450_RT_269_DSS.mat')
+load(fullfile(BaseDir,ResultDir,"RESULTS_STAD_M450_NoRT_312_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_STAD_M450_RT_60_DSS.mat"))
 
-x = -log10(RESULTS_LGG_M450_RT_269_DSS.X(:,5));
-y = -log10(RESULTS_LGG_M450_NoRT_185_DSS.X(:,5));
-fh=figure('Name','Scatter Plot','Color','w','Tag','Bar Plot','Units','inches');
-fh.Position(3:4) = [2 2];
-ah = axes(fh,'NextPlot','add','tag','Scatter Plot','box','on','Layer','top','FontSize',6);
-ah.LineWidth = 0.5;
-DensScat(x,y,'ColorMap',colorcet('L08'),'TargetAxes',ah,'mSize',10);
-ah.XLim=[0 max(x)+0.2];
-ah.YLim=[0 max(y)+0.2];
-xlabel('LGG RT -log_1_0(p)')
-ylabel('LGG NoRT -log_1_0(p)')
-[r p]=corr(x,y,'Type','Pearson','Rows','pairwise');
-text(max(x),max(y),sprintf('r=%.2f',r),'HorizontalAlignment','right','VerticalAlignment','top','FontSize',6)
-fh.Renderer='painters';
-exportgraphics(fh,'LGG_RT_vs_NoRT_p_values.pdf')
-exportgraphics(fh,'LGG_RT_vs_NoRT_p_values.png','Resolution',300)
+load(fullfile(BaseDir,ResultDir,"RESULTS_CESC_M450_NoRT_120_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_CESC_M450_RT_134_DSS.mat"))
 
+load(fullfile(BaseDir,ResultDir,"RESULTS_LGG_M450_NoRT_185_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_LGG_M450_RT_269_DSS.mat"))
 
+load(fullfile(BaseDir,ResultDir,"RESULTS_GBM_M450_NoRT_32_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_GBM_M450_RT_80_DSS.mat"))
 
-% Figure 1f Comparing degree of methylation across all cohorts
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_NoRT_411_PFI.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_RT_59_PFI.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_NoRT_351_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_RT_67_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_NoRT_362_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_RT_282_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SARC_Radiation/RESULTS_2023/RESULTS_SARC_M450_NoRT_178_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SARC_Radiation/RESULTS_2023/RESULTS_SARC_M450_RT_59_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_STAD_Radiation/RESULTS_2023/RESULTS_STAD_M450_NoRT_312_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_STAD_Radiation/RESULTS_2023/RESULTS_STAD_M450_RT_60_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_CESC_Radiation/RESULTS_2023/RESULTS_CESC_M450_NoRT_120_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_CESC_Radiation/RESULTS_2023/RESULTS_CESC_M450_RT_134_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_LGG_Radiation/RESULTS_2023/RESULTS_LGG_M450_NoRT_185_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_LGG_Radiation/RESULTS_2023/RESULTS_LGG_M450_RT_269_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_GBM_Radiation/RESULTS_2023/RESULTS_GBM_M450_NoRT_32_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_GBM_Radiation/RESULTS_2023/RESULTS_GBM_M450_RT_80_DSS.mat')
 
 X = zeros(9,2);
 [X(1,1)] = CalcVolcanoStatResults(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'HR coxreg DSS','p coxreg DSS');
@@ -255,14 +205,14 @@ X = zeros(9,2);
 [X(9,1)] = CalcVolcanoStatResults(RESULTS_LGG_M450_RT_269_DSS,'HR coxreg DSS','p coxreg DSS');
 [X(9,2)] = CalcVolcanoStatResults(RESULTS_LGG_M450_NoRT_185_DSS,'HR coxreg DSS','p coxreg DSS');
 
-TCGA_Ids={'HPV(−)HNSCC','PRAD','SKCM','BRCA','SARC','STAD','CESC','GBM','LGG'};
+TCGA_Ids={'HPV(-)HNSCC','PRAD','SKCM','BRCA','SARC','STAD','CESC','GBM','LGG'};
 fh=figure('Name','Bar Plot','Color','w','Tag','Bar Plot','Units','inches');
 fh.Position(3:4) = [4,2];
 ah = axes(fh,'NextPlot','add','tag','Volcano Plot','box','off','Layer','top','FontSize',7);
 ah.LineWidth = 0.5;
 sh1=scatter(1:9,X(:,1),100,GetPalette('Tab20',[1 3 5 7 9 13 15 17 19]),'MarkerFaceColor','flat','MarkerEdgeColor',[0.1 0.1 0.1]);
 sh2=scatter(1:9,X(:,2),100,GetPalette('Tab20',[2 4 6 8 10 14 16 18 20]),'Linewidth',1);
-ylabel('(SumHyper - SumHypo) /SumTotal'); % Greek sum symbol is added in Affinity due to a bug in MATLAB while exporting fonts
+ylabel('(\SigmaHyper - \SigmaHypo) /\SigmaTotal');
 ah.XLim=[0.5 9.5];
 ah.XTick=1:9;
 ah.XTickLabel=TCGA_Ids;
@@ -273,9 +223,55 @@ scatter(8.2,0.9,100,[0.3 0.3 0.3],'MarkerFaceColor','flat','MarkerEdgeColor',[0.
 text(8.5,0.9,'RT','HorizontalAlignment','left','VerticalAlignment','middle','FontSize',7)
 scatter(8.2,0.65,100,[0.3 0.3 0.3],'MarkerEdgeColor',[0.1 0.1 0.1],'Linewidth',1);
 text(8.5,0.65,'NoRT','HorizontalAlignment','left','VerticalAlignment','middle','FontSize',7)
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1d_DotPlot_RT_vs_NoRT.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1d_DotPlot_RT_vs_NoRT.png'),'Resolution',png_res)
+close(fh)
 
-exportgraphics(fh.Children,'DotPlot_RT_vs_NoRT.pdf')
-exportgraphics(fh.Children,'DotPlot_RT_vs_NoRT.png','Resolution',600)
+clear X TCGA_Ids fh ah sh1 sh2 
+
+% Figure 1e Density scatter plots comparing HNSC RT vs NoRT
+indx = strcmp('p coxreg DSS',RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.ColId);
+x = -log10(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.X(:,indx));
+y = -log10(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.X(:,indx));
+fh=figure('Name','Scatter Plot','Color','w','Tag','Bar Plot','Units','inches');
+fh.Position(3:4) = [2 2.1];
+ah = axes(fh,'NextPlot','add','tag','Scatter Plot','box','on','Layer','top','FontSize',6);
+ah.LineWidth = 0.5;
+DensScat(x,y,'ColorMap',colorcet('L08'),'TargetAxes',ah,'mSize',10);
+ah.XLim=[0 max(x)+0.2];
+ah.YLim=[0 max(y)+0.2];
+xlabel('HPV(−)HNSCC RT -log_1_0(p)')
+ylabel('HPV(−)HNSCC NoRT -log_1_0(p)')
+[r, ~]=corr(x,y,'Type','Pearson','Rows','pairwise');
+text(max(x),max(y),sprintf('r=%.2f',r),'HorizontalAlignment','right','VerticalAlignment','top','FontSize',6)
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1e_HNSC_RT_vs_NoRT_p_values_Density_Scatter.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1e_HNSC_RT_vs_NoRT_p_values_Density_Scatter.png'),'Resolution',png_res)
+close(fh)
+clear indx x y fh ah r 
+
+% Figure 1f Density scatter plots comparing LGG RT vs NoRT
+indx = strcmp('p coxreg DSS',RESULTS_LGG_M450_RT_269_DSS.ColId);
+x = -log10(RESULTS_LGG_M450_RT_269_DSS.X(:,indx));
+y = -log10(RESULTS_LGG_M450_NoRT_185_DSS.X(:,indx));
+fh=figure('Name','Scatter Plot','Color','w','Tag','Bar Plot','Units','inches');
+fh.Position(3:4) = [2 2];
+ah = axes(fh,'NextPlot','add','tag','Scatter Plot','box','on','Layer','top','FontSize',6);
+ah.LineWidth = 0.5;
+DensScat(x,y,'ColorMap',colorcet('L08'),'TargetAxes',ah,'mSize',10);
+ah.XLim=[0 max(x)+0.2];
+ah.YLim=[0 max(y)+0.2];
+xlabel('LGG RT -log_1_0(p)')
+ylabel('LGG NoRT -log_1_0(p)')
+[r, ~]=corr(x,y,'Type','Pearson','Rows','pairwise');
+text(max(x),max(y),sprintf('r=%.2f',r),'HorizontalAlignment','right','VerticalAlignment','top','FontSize',6)
+fh.Renderer='painters';exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1f_LGG_RT_vs_NoRT_p_values_Density_Scatter.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1f_LGG_RT_vs_NoRT_p_values_Density_Scatter.png'),'Resolution',png_res)
+close(fh)
+clear indx x y fh ah r 
+
+
 
 
 % KM plots
