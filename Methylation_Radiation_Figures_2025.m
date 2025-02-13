@@ -4,11 +4,12 @@
 %% Directory paths
 
 % Please change this accordingly to where you have downloaded the data
-BaseDir         = "/Users/berglund.anders/Documents/RadiationArticleData";
-ResultDir       = "ResultFiles";
+BaseDir                 = "/Users/berglund.anders/Documents/RadiationArticleData";
+ResultDir               = "ResultFiles";
+AverageMethylationDir   = "AverageMethylation";
 
-PanelFigDir     = "/Users/berglund.anders/Documents/RadiationArticleData/PanelFigures";
-%% Figure Seetings
+PanelFigDir             = "/Users/berglund.anders/Documents/RadiationArticleData/PanelFigures";
+%% Figure Settings
 
 png_res = 600;
 
@@ -25,7 +26,9 @@ end
 if ~exist('DensScat','file')
     error("Please download DensScat.m from https://github.com/aebergl/DensScat and add it to the path") 
 end
-
+if ~exist('MatSurv','file')
+    error("Please download MatSurv.m from https://github.com/aebergl/MatSurv and add it to the path") 
+end
 
 %% Figure 1
 FigureDir = "Figure_01";
@@ -266,7 +269,8 @@ xlabel('LGG RT -log_1_0(p)')
 ylabel('LGG NoRT -log_1_0(p)')
 [r, ~]=corr(x,y,'Type','Pearson','Rows','pairwise');
 text(max(x),max(y),sprintf('r=%.2f',r),'HorizontalAlignment','right','VerticalAlignment','top','FontSize',6)
-fh.Renderer='painters';exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1f_LGG_RT_vs_NoRT_p_values_Density_Scatter.pdf'));
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1f_LGG_RT_vs_NoRT_p_values_Density_Scatter.pdf'));
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1f_LGG_RT_vs_NoRT_p_values_Density_Scatter.png'),'Resolution',png_res)
 close(fh)
 clear indx x y fh ah r 
@@ -276,8 +280,10 @@ clear indx x y fh ah r
 
 % KM plots
 % Figure 1g
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/AverageMethylation/HyperHypo_HNSC_M450_RT_HPV_Neg_187.mat')
-[p_LR,fH,stats] = MatSurv(HyperHypo_HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvTime(:,3),HyperHypo_HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvEvent(:,3),HyperHypo_HNSC_M450_RT_HPV_Neg_187.X(:,2),'cutpoint','median',...
+load(fullfile(BaseDir,AverageMethylationDir,"HyperHypo_HNSC_M450_RT_HPV_Neg_187.mat"))
+indx_HypMet = strcmp('Hyper methylation',HyperHypo_HNSC_M450_RT_HPV_Neg_187.ColId);
+indx_DSS = strcmp('DSS',HyperHypo_HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvivalTypes);
+[~,fH,~] = MatSurv(HyperHypo_HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvTime(:,indx_DSS),HyperHypo_HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvEvent(:,indx_DSS),HyperHypo_HNSC_M450_RT_HPV_Neg_187.X(:,indx_HypMet),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',6,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by Hyper-methylation (Months)');
 %fH.Children(1).String = {'High Hyper','Low hyper'};
@@ -289,12 +295,20 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3:4)= [2.1 2.2];
 fH.Children(1).Position=[0.1747 0.1549 0.7892 0.8210];
-exportgraphics(fH,'Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.png','Resolution',600)
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1g_Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1g_Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+clear indx_HypMet indx_DSS fH
+
 
 % Figure 1h
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/AverageMethylation/HyperHypo_RT_59.mat')
-[p_LR,fH,stats] = MatSurv(HyperHypo_RT_59.SURVIVAL.SurvTime(:,2),HyperHypo_RT_59.SURVIVAL.SurvEvent(:,2),HyperHypo_RT_59.X(:,2),'cutpoint','median',...
+load(fullfile(BaseDir,AverageMethylationDir,"HyperHypo_RT_59.mat"))
+indx_HypMet = strcmp('Hyper methylation',HyperHypo_RT_59.ColId);
+indx_PFI = strcmp('PFI',HyperHypo_RT_59.SURVIVAL.SurvivalTypes);
+
+
+[p_LR,fH,stats] = MatSurv(HyperHypo_RT_59.SURVIVAL.SurvTime(:,indx_PFI),HyperHypo_RT_59.SURVIVAL.SurvEvent(:,indx_PFI),HyperHypo_RT_59.X(:,indx_HypMet),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',6,'XStep',12,'LineWidth',0.75,'XLim',[0 60],'legend',false,'ylabel','Progression Free Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','PFI by Hyper-methylation (Months)');
 %fH.Children(1).String = {'High Hyper','Low hyper'};
@@ -306,19 +320,30 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3:4)= [2.1 2.2];
 fH.Children(1).Position=[0.1747 0.1549 0.7892 0.8210];
-exportgraphics(fH,'PRAD_M450_RT_59_Hyper_PFI_KM_Plot.pdf')
-exportgraphics(fH,'PRAD_M450_RT_59_Hyper_PFI_KM_Plot.png','Resolution',600)
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1h_Hyper_PRAD_M450_RT_59_PFI_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1h_Hyper_PRAD_M450_RT_59_PFI_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+clear indx_HypMet indx_PFI fH
 
+% Clear all files related to Figure 1
 
+clear FigureDir RESULTS_* HyperHypo_*
 
 
 %% Figure 2
 
+FigureDir = "Figure_02";
+%Create Figure_02 directory
+[status, Msg] = mkdir(PanelFigDir,FigureDir);
+if ~status
+    error('Could not create %s, reason: %s',FigureDir,Msg)
+end
+
+
 % HNSC HPV-
 % Figure 2a
-
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat')
-
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
 fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'chr1',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 2],[1 80],'cytoband','REGION',{[203000000 226100000],4,''});
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
