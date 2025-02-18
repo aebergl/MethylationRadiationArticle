@@ -348,8 +348,8 @@ fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'CpG_beg','CpG_chrm','chr1
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
 fh.Renderer='painters';
-exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2a_Chr_01_Cox_HNSC_RT_HPV_Neg.pdf'));
-exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2a_Chr_01_Cox_HNSC_RT_HPV_Neg.png'),'Resolution',png_res)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2a_Chr_01_Cox_HNSC_RT_HPV_Neg.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2a_Chr_01_Cox_HNSC_RT_HPV_Neg.png'),'Resolution',png_res)
 close(fh)
 
 %Figure 2b
@@ -380,8 +380,8 @@ h_TRAF5 = findobj(fh,'String','TRAF5');
 h_TRAF5.Position = [209.7000 1.3100 0];
 
 fh.Renderer='painters';
-exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.pdf'));
-exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.png'),'Resolution',png_res)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.png'),'Resolution',png_res)
 close(fh)
 clear genes h_* fh
 
@@ -394,58 +394,71 @@ fh = ChrPlotDiff(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'CpG_beg','CpG_chrm','ch
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_01_Cox_HNSC_NoRT_HPV_Neg.pdf')
-exportgraphics(fh,'Chr_01_Cox_HNSC_NoRT_HPV_Neg.png','Resolution',600)
-
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2c_Chr_01_Cox_HNSC_NoRT_HPV_Neg.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.png'),'Resolution',png_res)
+close(fh)
 
 %Figure 2d
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/AverageMethylation/SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187.mat')
-samples=SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187.RowId(6:end)
-fh=Chr_Survival_Dot_Plot(SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187,'HR logrank DSS',samples,'p logrank DSS',[1 0.05 0.01],[5 20 50],GetPalette('Tab10',1),3,1.8);
+load(fullfile(BaseDir,AverageMethylationDir,"SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187.mat"))
+RowsToUse = SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187.RowId(6:end);
+fh=Chr_Survival_Dot_Plot(SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187,'HR logrank DSS',RowsToUse,'p logrank DSS',[1 0.05 0.01],[5 20 50],GetPalette('Tab10',1),3,1.8);
 ylabel('Chromosome')
-exportgraphics(fh,'Chr_Survival_HNSC_M450_RT_HPV_Neg_187_logrank.pdf')
-exportgraphics(fh,'Chr_Survival_HNSC_M450_RT_HPV_Neg_187_logrank.png','Resolution',600)
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2d_hr_Survival_HNSC_M450_RT_HPV_Neg_187_logrank.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2d_hr_Survival_HNSC_M450_RT_HPV_Neg_187_logrank.png'),'Resolution',png_res)
+close(fh)
+clear RowsToUse RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS SURVIVAL_HyperHypo_HNSC_M450_RT_HPV_Neg_187 RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS fh
 
 
 
 % PRAD
 % Figure 2e
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_RT_59_PFI.mat')
-fh = ChrPlotDiff(RESULTS_PRAD_M450_RT_59_PFI,'chr19',[],'HR coxreg PFI','HR coxreg PFI','p coxreg PFI',[6 1.95],[1 80],'cytoband','REGION',{[43500000 47230900],8,''});
+load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_RT_59_PFI.mat"))
+fh = ChrPlotDiff(RESULTS_PRAD_M450_RT_59_PFI,'CpG_beg','CpG_chrm','chr19','HR coxreg PFI','HR coxreg PFI','p coxreg PFI','cytoband','mb','FigSize',[6 1.95],'REGION',{[43500000 47230900] [-4 8],''});
 fh.Children(4).YLim=[-8.5 8.5];
 fh.Children(4).CLim = [0 5];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_19_Cox_PRAD_RT.pdf')
-exportgraphics(fh,'Chr_19_Cox_PRAD_RT.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2e_Chr_19_Cox_PRAD_RT.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2e_Chr_19_Cox_PRAD_RT.png'),'Resolution',png_res)
+close(fh)
+
 
 
 % Figure 2f
-genes={'ZNF575','CLPTM1','ERCC1','IRF2BP1','BBC3'}
-fh = ChrPlotDiff(RESULTS_PRAD_M450_RT_59_PFI,'chr19',[43500000 47230900],'HR coxreg PFI','HR coxreg PFI','p coxreg PFI',[4 1.65],[1 80],'GENES',genes);
+genes={'ZNF575','CLPTM1','ERCC1','IRF2BP1','BBC3'};
+fh = ChrPlotDiff(RESULTS_PRAD_M450_RT_59_PFI,'CpG_beg','CpG_chrm','chr19','HR coxreg PFI','HR coxreg PFI','p coxreg PFI','PlotRange',[43500000 47230900],'FigSize',[4 1.65],'GENES','gene_HGNC',genes);
+
 fh.Children(2).CLim = [0 5];
 % Adjust position of the legend for highlighted genes
 fh_BBC3 = findobj(fh,'String','BBC3');
 fh_BBC3.Position = [46.83 6.65 0];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_19_Cox_PRAD_RT_Zoom.pdf')
-exportgraphics(fh,'Chr_19_Cox_PRAD_RT_Zoom.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2f_Chr_19_Cox_PRAD_RT_Zoom.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2f_Chr_19_Cox_PRAD_RT_Zoom.png'),'Resolution',png_res)
+close(fh)
 
 % Figure 2g
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_NoRT_411_PFI.mat')
-fh = ChrPlotDiff(RESULTS_PRAD_M450_NoRT_411_PFI,'chr19',[],'HR coxreg PFI','HR coxreg PFI','p coxreg PFI',[6 1.95],[1 80],'cytoband');
+load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_NoRT_411_PFI.mat"))
+fh = ChrPlotDiff(RESULTS_PRAD_M450_NoRT_411_PFI,'CpG_beg','CpG_chrm','chr19','HR coxreg PFI','HR coxreg PFI','p coxreg PFI','FigSize',[6 1.95],'cytoband','mb');
 fh.Children(4).YLim=[-3.5 3.5];
 fh.Children(4).CLim = [0 5];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_19_Cox_PRAD_NoRT.pdf')
-exportgraphics(fh,'Chr_19_Cox_PRAD_NoRT.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2g_Chr_19_Cox_PRAD_NoRT.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2g_Chr_19_Cox_PRAD_NoRT.png'),'Resolution',png_res)
+close(fh)
+
 
 % Figure 2h
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/AverageMethylation/SURVIVAL_HyperHypo_RT_59.mat')
-samples=SURVIVAL_HyperHypo_RT_59.RowId(6:end)
-fh=Chr_Survival_Dot_Plot(SURVIVAL_HyperHypo_RT_59,'HR logrank PFI',samples,'p logrank PFI',[1 0.05 0.01],[5 20 50],GetPalette('Tab10',2),3,1.8);
+load(fullfile(BaseDir,AverageMethylationDir,"SURVIVAL_HyperHypo_RT_59.mat"))
+RowsToUse = SURVIVAL_HyperHypo_RT_59.RowId(6:end);
+
+fh=Chr_Survival_Dot_Plot(SURVIVAL_HyperHypo_RT_59,'HR logrank PFI',RowsToUse,'p logrank PFI',[1 0.05 0.01],[5 20 50],GetPalette('Tab10',2),3,1.8);
 ylabel('Chromosome')
-exportgraphics(fh,'Chr_Survival_PRAD_M450_RT_59_logrank.pdf')
-exportgraphics(fh,'Chr_Survival_PRAD_M450_RT_59_logrank.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2h_Chr_Survival_PRAD_M450_RT_59_logrank.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2h_Chr_Survival_PRAD_M450_RT_59_logrank.png'),'Resolution',png_res)
+close(fh)
+clear RowsToUse RESULTS_PRAD_M450_RT_59_PFI RESULTS_PRAD_M450_NoRT_411_PFI SURVIVAL_HyperHypo_RT_59 fh fh_BBC3
+
 
 
 %SKCM
