@@ -344,18 +344,17 @@ end
 % HNSC HPV-
 % Figure 2a
 load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
-fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'chr1',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 2],[1 80],'cytoband','REGION',{[203000000 226100000],4,''});
-fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'CpG_beg','CpG_chrm','chr1','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb','REGION',{[203000000 226100000 -2 4],'TEST'});
+fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'CpG_beg','CpG_chrm','chr1','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb','REGION',{[203000000 226100000] [-2 4],''});
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_01_Cox_HNSC_RT_HPV_Neg.pdf')
-exportgraphics(fh,'Chr_01_Cox_HNSC_RT_HPV_Neg.png','Resolution',600)
-
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2a_Chr_01_Cox_HNSC_RT_HPV_Neg.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2a_Chr_01_Cox_HNSC_RT_HPV_Neg.png'),'Resolution',png_res)
+close(fh)
 
 %Figure 2b
 genes={'TMEM183A','RBBP5','ELK4','RASSF5','DYRK3','MAPKAPK2','CD55','TRAF5','SLC30A1','ATF3','SDE2'};
-fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'chr1',[203000000 226100000],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[4 1.7],[1 80],'GENES',genes);
+fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'CpG_beg','CpG_chrm','chr1','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','PlotRange',[203000000 226100000],'FigSize',[4 1.7],'GENES','gene_HGNC',genes);
 fh.Children(2).CLim = [0 6];
 
 % Adjust position of the legend for highlighted genes
@@ -379,14 +378,19 @@ h_MAPKAPK2.Position = [206.7092 2.13 0];
 
 h_TRAF5 = findobj(fh,'String','TRAF5');
 h_TRAF5.Position = [209.7000 1.3100 0];
-exportgraphics(fh,'Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.pdf')
-exportgraphics(fh,'Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.png','Resolution',600)
 
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure2b_Chr_01_Cox_HNSC_RT_HPV_Neg_Zoom.png'),'Resolution',png_res)
+close(fh)
+clear genes h_* fh
 
 
 %Figure 2c
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat')
-fh = ChrPlotDiff(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'chr1',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 2],[1 80],'YValCutOff',1,'ColorValCutOff',2,'cytoband');
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS.mat"))
+
+fh = ChrPlotDiff(RESULTS_HNSC_M450_NoRT_HPV_Neg_167_DSS,'CpG_beg','CpG_chrm','chr1','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb');
+
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
 fh.Renderer='painters';
