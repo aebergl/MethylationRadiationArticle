@@ -345,6 +345,7 @@ end
 % Figure 2a
 load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
 fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'chr1',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 2],[1 80],'cytoband','REGION',{[203000000 226100000],4,''});
+fh = ChrPlotDiff(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS,'CpG_beg','CpG_chrm','chr1','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb','REGION',{[203000000 226100000 -2 4],'TEST'});
 fh.Children(4).YLim=[-4.5 4.5];
 fh.Children(4).CLim = [0 6];
 fh.Renderer='painters';
