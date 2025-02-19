@@ -26,10 +26,30 @@ end
 if ~exist('DensScat','file')
     error("Please download DensScat.m from https://github.com/aebergl/DensScat and add it to the path") 
 end
+
 if ~exist('MatSurv','file')
     error("Please download MatSurv.m from https://github.com/aebergl/MatSurv and add it to the path") 
 end
 
+if ~exist('CalcVolcanoStatResults','file')
+    error("Please download CalcVolcanoStatResults.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
+
+if ~exist('ChrPlotDiff','file')
+    error("Please download ChrPlotDiff.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
+
+if ~exist('Chr_Survival_Dot_Plot','file')
+    error("Please download Chr_Survival_Dot_Plot.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
+
+if ~exist('Read_GSEA_File','file')
+    error("Please download Read_GSEA_File.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
+
+if ~exist('GSEA_Dot_Plot','file')
+    error("Please download GSEA_Dot_Plot.m from https://github.com/aebergl/BioinformaticsAEB and add it to the path") 
+end
 %% Figure 1
 FigureDir = "Figure_01";
 %Create Figure_01 directory
@@ -546,15 +566,19 @@ lh.Interpreter='none';
 set( gca,'FontSize',7);
 set(gcf, 'Color', 'w');
 lh.Location='eastoutside';
+ph(4).Position=[0.3 -0.95 0];
+ph(6).Position=[0.4503 -1.15 0];
+ph(10).Position=[0.5775 -0.8 0];
+fh.Renderer='painters';
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3a_CPG_Probe_Type_Pie_Chart.pdf'));
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3a_CPG_Probe_Type_Pie_Chart.png'),'Resolution',png_res)
 close(fh)
 
- SavePDF_AEB('CPG_Probe_Type_Pie_Chart')
-
+clear fh RESULTS_* X s indx IDs numID p_indx ph lh status Msg
 
 % Figure 3b GSEA analysis was done using the online tool and the results was then exported to .tsv files
-GSEA_REACTOME_Hyper_216 = Read_GSEA_File('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/Combined_Analysis_2023/GSEA_REACTOME_Hyper/GSEA_RECTOME_216_Hyper.tsv')
+GSEA_REACTOME_Hyper_216 = Read_GSEA_File(fullfile(BaseDir,ResultDir,"GSEA_RECTOME_216_Hyper.tsv"));
+
 fh1  = GSEA_Dot_Plot(GSEA_REACTOME_Hyper_216,[],5.2,2.5, [10 20 30],'Description');
 SavePDF_AEB('GSEA_REACTOME_Hyper_216')
 
