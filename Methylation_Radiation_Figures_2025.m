@@ -464,36 +464,48 @@ clear RowsToUse RESULTS_PRAD_M450_RT_59_PFI RESULTS_PRAD_M450_NoRT_411_PFI SURVI
 %SKCM
 
 % Figure 2i
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_RT_67_DSS.mat')
-fh = ChrPlotDiff(RESULTS_SKCM_M450_RT_67_DSS,'chr2',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 1.95],[1 80],'cytoband','REGION',{[235500000 242088874],7.5,''});
+load(fullfile(BaseDir,ResultDir,"RESULTS_SKCM_M450_RT_67_DSS.mat"))
+fh = ChrPlotDiff(RESULTS_SKCM_M450_RT_67_DSS,'CpG_beg','CpG_chrm','chr2','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb','FigSize',[6 1.95],'REGION',{[235500000 242088874] [-6 8],''});
 fh.Children(4).YLim=[-8.3 8.3];
 fh.Children(4).CLim = [0 5];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_02_Cox_SKCM_RT.pdf')
-exportgraphics(fh,'Chr_02_Cox_SKCM_RT.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2i_Chr_02_Cox_SKCM_RT.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2i_Chr_02_Cox_SKCM_RT.png'),'Resolution',png_res)
+close(fh)
 
 
 % Figure 2j
-genes={'AGAP1','RBM44','HDAC4','ING5'}
-fh = ChrPlotDiff(RESULTS_SKCM_M450_RT_67_DSS,'chr2',[ 235500000 242088874],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[4 1.65],[1 80],'GENES',genes);
+genes={'AGAP1','RBM44','HDAC4','ING5'};
+fh = ChrPlotDiff(RESULTS_SKCM_M450_RT_67_DSS,'CpG_beg','CpG_chrm','chr2','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','PlotRange',[235500000 242088874],'FigSize',[4 1.65],'GENES','gene_HGNC',genes);
+fh.Children(2).YLim=[-6 8];
 fh.Children(2).CLim = [0 5];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_02_Cox_SKCM_RT_Zoom.pdf')
-exportgraphics(fh,'Chr_02_Cox_SKCM_RT_Zoom.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2j_Chr_02_Cox_SKCM_RT_Zoom.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2j_Chr_02_Cox_SKCM_RT_Zoom.png'),'Resolution',png_res)
+close(fh)
+
 
 % Figure 2k
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_NoRT_351_DSS.mat')
-fh = ChrPlotDiff(RESULTS_SKCM_M450_NoRT_351_DSS,'chr2',[],'HR coxreg DSS','HR coxreg DSS','p coxreg DSS',[6 1.95],[1 80],'cytoband','REGION',{[235500000 242088874],7.5,''});
+load(fullfile(BaseDir,ResultDir,"RESULTS_SKCM_M450_NoRT_351_DSS.mat"))
+fh = ChrPlotDiff(RESULTS_SKCM_M450_NoRT_351_DSS,'CpG_beg','CpG_chrm','chr2','HR coxreg DSS','HR coxreg DSS','p coxreg DSS','cytoband','mb','FigSize',[6 1.95]);
+
 fh.Children(4).YLim=[-2.5 2.5];
 fh.Children(4).CLim = [0 5];
 fh.Renderer='painters';
-exportgraphics(fh,'Chr_02_Cox_SKCM_NoRT.pdf')
-exportgraphics(fh,'Chr_02_Cox_SKCM_NoRT.png','Resolution',600)
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2k_Chr_02_Cox_SKCM_NoRT.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_2k_Chr_02_Cox_SKCM_NoRT.png'),'Resolution',png_res)
+close(fh)
 
-
+clear fh RESULTS_SKCM_M450_RT_67_DSS RESULTS_SKCM_M450_NoRT_351_DSS genes FigureDir
 
 
 %% Figure 3
+FigureDir = "Figure_03";
+%Create Figure_03 directory
+[status, Msg] = mkdir(PanelFigDir,FigureDir);
+if ~status
+    error('Could not create %s, reason: %s',FigureDir,Msg)
+end
 
 % Figure 3a
 load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_RT_59_PFI.mat')
