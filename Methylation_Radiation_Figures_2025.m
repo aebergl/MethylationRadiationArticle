@@ -514,6 +514,12 @@ load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RE
 load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_RT_282_DSS.mat')
 load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SARC_Radiation/RESULTS_2023/RESULTS_SARC_M450_RT_59_DSS')
 
+load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_RT_59_PFI.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_SKCM_M450_RT_67_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_BRCA_M450_RT_282_DSS.mat"))
+load(fullfile(BaseDir,ResultDir,"RESULTS_SARC_M450_RT_59_DSS.mat"))
+
 
 X = [log2(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.X(:,8))> 1 & -log10(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.X(:,5))>2 ,...
     log2(RESULTS_PRAD_M450_RT_59_PFI.X(:,8))> 1 & -log10(RESULTS_PRAD_M450_RT_59_PFI.X(:,5))>2 ,...
@@ -521,8 +527,8 @@ X = [log2(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.X(:,8))> 1 & -log10(RESULTS_HNSC_
     log2(RESULTS_BRCA_M450_RT_282_DSS.X(:,8))> 1 & -log10(RESULTS_BRCA_M450_RT_282_DSS.X(:,5))>2 ,...
     log2(RESULTS_SARC_M450_RT_59_DSS.X(:,8))> 1 & -log10(RESULTS_SARC_M450_RT_59_DSS.X(:,5))>2];
 
-s=sum(X,2);
-indx=find(s>=2);
+s = sum(X,2);
+indx = find(s>=2);
 
 % Pie chart
 [IDs,numID] = GroupCount(RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.RowAnnotation(indx,15),1);
@@ -540,6 +546,10 @@ lh.Interpreter='none';
 set( gca,'FontSize',7);
 set(gcf, 'Color', 'w');
 lh.Location='eastoutside';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3a_CPG_Probe_Type_Pie_Chart.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3a_CPG_Probe_Type_Pie_Chart.png'),'Resolution',png_res)
+close(fh)
+
  SavePDF_AEB('CPG_Probe_Type_Pie_Chart')
 
 
