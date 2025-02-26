@@ -810,7 +810,7 @@ exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3m_Methylation_Score_S
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3m_Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.png'),'Resolution',png_res)
 close(fH)
 
-clear Width Hight fH p_LR stats HNSC_M450_NoRT_HPV_Neg_167_216probes PRAD_M450_NoRT_411_216probes SKCM_M450_NoRT_351_216probes BRCA_M450_NoRT_362_216probes SARC_M450_NoRT_178_216probes 
+clear CpG_probes_216 Width Hight fH p_LR stats HNSC_M450_NoRT_HPV_Neg_167_216probes PRAD_M450_NoRT_411_216probes SKCM_M450_NoRT_351_216probes BRCA_M450_NoRT_362_216probes SARC_M450_NoRT_178_216probes 
 
 
 % RNAseq results
@@ -836,9 +836,45 @@ exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3n_GSEA_RNAseq_DotPlot
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3n_GSEA_RNAseq_DotPlot.png'),'Resolution',png_res)
 close(fh)
 
-exportgraphics(fh,'GSEA_DotPlot.pdf')
-exportgraphics(fh,'GSEA_DotPlot.png','Resolution',600)
+clear fh GSEA_* DATA_GSEA DataSets
 
+% Figure 3o
+load(fullfile(BaseDir,DataDir,"HNSC_RNAseq_RT_HPV_Neg_187.mat"))
+load(fullfile(BaseDir,DataDir,"PRAD_RNAseq_RT_59.mat"))
+load(fullfile(BaseDir,DataDir,"SKCM_RNAseq_RT_67.mat"))
+load(fullfile(BaseDir,DataDir,"BRCA_RNAseq_RT_360.mat"))
+load(fullfile(BaseDir,DataDir,"SARC_RNAseq_RT_57.mat"))
+
+
+
+genes={'CD3E','CD4','CD8A','CD247','GZMB','PRF1','MS4A1','CD19','CD40'};
+
+i=1;
+GeneSymbol = genes(i);
+fh = figure('Color','w','Units','inches');
+fh.Position(3:4) = [4.1 1.9];
+th = tiledlayout(fh,1,5,'TileSpacing','compact','padding','compact');
+
+
+ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+options={'VariableIdentifier','Symbol','CalcStats',[],'TargetAxes',ah,'TitleText','HPV(-)HNSCC RT','MarkerSize',10,'MarkerLineWidth',0.5,'BoxLineWidth',0.5,'FontSize',6,'FigureSize',[3 2.6],'BoxWidths',0.8,'XJitterWidth',0.6,'StatType','MW','PlotStars',true,'Show_NS',true};
+
+PlotBoxPlotDATA(HNSC_RNAseq_RT_HPV_Neg_187,GeneSymbol,'Methylation Group',{'low','high'},options{:});
+
+ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+PlotBoxPlotDATA(PRAD_RNAseq_RT_59,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','PRAD RT');
+
+ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+PlotBoxPlotDATA(SKCM_RNAseq_RT_67,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','SKCM RT');
+
+ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+PlotBoxPlotDATA(BRCA_RNAseq_RT_360,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','BRCA RT');
+
+ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+PlotBoxPlotDATA(SARC_RNAseq_RT_57,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','SARC RT');
+
+exportgraphics(fh,'PRF1_BoxPlot_TCGA_RNAseq.pdf')
+exportgraphics(fh,'PRF1_BoxPlot_TCGA_RNAseq.png','Resolution',600)
 
 
 %% Figure 4 CCLE data
