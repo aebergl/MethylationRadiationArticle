@@ -7,7 +7,7 @@
 BaseDir                 = "/Users/berglund.anders/Documents/RadiationArticleData";
 ResultDir               = "ResultFiles";
 AverageMethylationDir   = "AverageMethylation";
-
+DataDir                 = "DataFiles";
 PanelFigDir             = "/Users/berglund.anders/Documents/RadiationArticleData/PanelFigures";
 %% Figure Settings
 
@@ -315,7 +315,7 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3:4)= [2.1 2.2];
 fH.Children(1).Position=[0.1747 0.1549 0.7892 0.8210];
-fh.Renderer='painters';
+fH.Renderer='painters';
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1g_Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.pdf'));
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1g_Hyper_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.png'),'Resolution',png_res)
 close(fH)
@@ -340,7 +340,7 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3:4)= [2.1 2.2];
 fH.Children(1).Position=[0.1747 0.1549 0.7892 0.8210];
-fh.Renderer='painters';
+fH.Renderer='painters';
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1h_Hyper_PRAD_M450_RT_59_PFI_KM_Plot.pdf'));
 exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_1h_Hyper_PRAD_M450_RT_59_PFI_KM_Plot.png'),'Resolution',png_res)
 close(fH)
@@ -528,11 +528,6 @@ if ~status
 end
 
 % Figure 3a
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/RESULTS_2023/RESULTS_PRAD_M450_RT_59_PFI.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/RESULTS_2023/RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/RESULTS_2023/RESULTS_SKCM_M450_RT_67_DSS')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/RESULTS_2023/RESULTS_BRCA_M450_RT_282_DSS.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SARC_Radiation/RESULTS_2023/RESULTS_SARC_M450_RT_59_DSS')
 
 load(fullfile(BaseDir,ResultDir,"RESULTS_HNSC_M450_RT_HPV_Neg_187_DSS.mat"))
 load(fullfile(BaseDir,ResultDir,"RESULTS_PRAD_M450_RT_59_PFI.mat"))
@@ -598,12 +593,13 @@ clear GSEA_REACTOME_Hyper_216 GSEA_TFT_GRD_Hyper_216 fh
 
 % KM plots using the 216 selected CpG-probes
 
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_PRAD_Radiation/DATA/PRAD_M450_RT_59.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_HNSC_Radiation/DATA/HNSC_M450_RT_HPV_Neg_187')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SKCM_Radiation/DATA/SKCM_M450_RT_67')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_BRCA_Radiation/DATA/BRCA_M450_RT_282.mat')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/TCGA_SARC_Radiation/DATA/SARC_M450_RT_59')
-load('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/Combined_Analysis_2023/CpG_probes_216.mat')
+load(fullfile(BaseDir,DataDir,"PRAD_M450_RT_59.mat"))
+load(fullfile(BaseDir,DataDir,"HNSC_M450_RT_HPV_Neg_187.mat"))
+load(fullfile(BaseDir,DataDir,"SKCM_M450_RT_67.mat"))
+load(fullfile(BaseDir,DataDir,"BRCA_M450_RT_282.mat"))
+load(fullfile(BaseDir,DataDir,"SARC_M450_RT_59.mat"))
+load(fullfile(BaseDir,ResultDir,"CpG_probes_216.mat"))
+
 
 HNSC_M450_RT_HPV_Neg_187_216probes =  EditVariablesDATA(HNSC_M450_RT_HPV_Neg_187,CpG_probes_216,'Keep');
 SKCM_M450_RT_67_216probes =  EditVariablesDATA(SKCM_M450_RT_67,CpG_probes_216,'Keep');
@@ -611,16 +607,16 @@ PRAD_M450_RT_59_216probes =  EditVariablesDATA(PRAD_M450_RT_59,CpG_probes_216,'K
 BRCA_M450_RT_282_216probes =  EditVariablesDATA(BRCA_M450_RT_282,CpG_probes_216,'Keep');
 SARC_M450_RT_59_216probes =  EditVariablesDATA(SARC_M450_RT_59,CpG_probes_216,'Keep');
 
+clear  PRAD_M450_RT_59 HNSC_M450_RT_HPV_Neg_187 SKCM_M450_RT_67 BRCA_M450_RT_282 SARC_M450_RT_59
 
 
 Width=1.68;
 Hight = 1.6;
 
 % Figure 3d
-[p_LR,fH,stats] = MatSurv(HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvTime(:,3),HNSC_M450_RT_HPV_Neg_187.SURVIVAL.SurvEvent(:,3),mean(HNSC_M450_RT_HPV_Neg_187_216probes.X,2,'omitnan'),'cutpoint','median',...
+[p_LR,fH,stats] = MatSurv(HNSC_M450_RT_HPV_Neg_187_216probes.SURVIVAL.SurvTime(:,3),HNSC_M450_RT_HPV_Neg_187_216probes.SURVIVAL.SurvEvent(:,3),mean(HNSC_M450_RT_HPV_Neg_187_216probes.X,2,'omitnan'),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
-%fH.Children(1).String = {'High Hyper','Low hyper'};
 fH.Children(1).Children(1).String = {'Low'};
 fH.Children(1).Children(2).String = {'High'};
 fH.Children(1).Children(1).FontWeight='normal';
@@ -629,14 +625,16 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3d_Methylation_Score_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3d_Methylation_Score_HNSC_M450_RT_HPV_Neg_187_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
 
 % Figure 3e
-[p_LR,fH,stats] = MatSurv(PRAD_M450_RT_59.SURVIVAL.SurvTime(:,2),PRAD_M450_RT_59.SURVIVAL.SurvEvent(:,2),mean(PRAD_M450_RT_59_216probes.X,2,'omitnan'),'cutpoint','median',...
+[p_LR,fH,stats] = MatSurv(PRAD_M450_RT_59_216probes.SURVIVAL.SurvTime(:,2),PRAD_M450_RT_59_216probes.SURVIVAL.SurvEvent(:,2),mean(PRAD_M450_RT_59_216probes.X,2,'omitnan'),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',12,'LineWidth',0.75,'XLim',[0 60],'legend',false,'ylabel','Progression Free Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','PFI by RRMS (Months)');
-%fH.Children(1).String = {'High Hyper','Low hyper'};
 fH.Children(1).Children(1).String = {'Low'};
 fH.Children(1).Children(2).String = {'High'};
 fH.Children(1).Children(1).FontWeight='normal';
@@ -645,14 +643,15 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_PRAD_M450_RT_59_Hyper_PFI_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_PRAD_M450_RT_59_Hyper_PFI_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3e_Methylation_Score_PRAD_M450_RT_59_PFI_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3e_Methylation_Score_PRAD_M450_RT_59_PFI_KM_Plot.png'),'Resolution',png_res)
+close(fH)
 
 % Figure 3f
 [p_LR,fH,stats] = MatSurv(SKCM_M450_RT_67_216probes.SURVIVAL.SurvTime(:,3),SKCM_M450_RT_67_216probes.SURVIVAL.SurvEvent(:,3),mean(SKCM_M450_RT_67_216probes.X,2,'omitnan'),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
-%fH.Children(1).String = {'High Hyper','Low hyper'};
 fH.Children(1).Children(1).String = {'Low'};
 fH.Children(1).Children(2).String = {'High'};
 fH.Children(1).Children(1).FontWeight='normal';
@@ -661,15 +660,16 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_SKCM_M450_RT_67_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_SKCM_M450_RT_67_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3f_Methylation_Score_SKCM_M450_RT_67_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3f_Methylation_Score_SKCM_M450_RT_67_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
 
 
 % Figure 3g
 [p_LR,fH,stats] = MatSurv(BRCA_M450_RT_282_216probes.SURVIVAL.SurvTime(:,3),BRCA_M450_RT_282_216probes.SURVIVAL.SurvEvent(:,3),mean(BRCA_M450_RT_282_216probes.X,2,'omitnan'),'cutpoint','median','TimeMax',120,...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
-%fH.Children(1).String = {'High Hyper','Low hyper'};
 fH.Children(1).Children(1).String = {'Low'};
 fH.Children(1).Children(2).String = {'High'};
 fH.Children(1).Children(1).FontWeight='normal';
@@ -678,14 +678,16 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_BRCA_M450_RT_282_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_BRCA_M450_RT_282_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3g_Methylation_Score_BRCA_M450_RT_282_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3g_Methylation_Score_BRCA_M450_RT_282_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
 
 % Figure 3h
 [p_LR,fH,stats] = MatSurv(SARC_M450_RT_59_216probes.SURVIVAL.SurvTime(:,3),SARC_M450_RT_59_216probes.SURVIVAL.SurvEvent(:,3),mean(SARC_M450_RT_59_216probes.X,2,'omitnan'),'cutpoint','median',...
 'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',12,'LineWidth',0.75,'XLim',[0 60],'legend',false,'ylabel','Survival Probability',...
 'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
-%fH.Children(1).String = {'High Hyper','Low hyper'};
 fH.Children(1).Children(1).String = {'Low'};
 fH.Children(1).Children(2).String = {'High'};
 fH.Children(1).Children(1).FontWeight='normal';
@@ -694,8 +696,104 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_SARC_M450_RT_59_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_SARC_M450_RT_59_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3h_Methylation_Score_SARC_M450_RT_59_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3h_Methylation_Score_SARC_M450_RT_59_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
+
+clear fH HNSC_M450_RT_HPV_Neg_187_216probes PRAD_M450_RT_59_216probes SKCM_M450_RT_67_216probes BRCA_M450_RT_282_216probes SARC_M450_RT_59_216probes
+
+load(fullfile(BaseDir,DataDir,"HNSC_M450_NoRT_HPV_Neg_167.mat"))
+load(fullfile(BaseDir,DataDir,"PRAD_M450_NoRT_411.mat"))
+load(fullfile(BaseDir,DataDir,"SKCM_M450_NoRT_351.mat"))
+load(fullfile(BaseDir,DataDir,"BRCA_M450_NoRT_362.mat"))
+load(fullfile(BaseDir,DataDir,"SARC_M450_NoRT_178.mat"))
+
+HNSC_M450_NoRT_HPV_Neg_167_216probes =  EditVariablesDATA(HNSC_M450_NoRT_HPV_Neg_167,CpG_probes_216,'Keep');
+PRAD_M450_NoRT_411_216probes =  EditVariablesDATA(PRAD_M450_NoRT_411,CpG_probes_216,'Keep');
+SKCM_M450_NoRT_351_216probes =  EditVariablesDATA(SKCM_M450_NoRT_351,CpG_probes_216,'Keep');
+BRCA_M450_NoRT_362_216probes =  EditVariablesDATA(BRCA_M450_NoRT_362,CpG_probes_216,'Keep');
+SARC_M450_NoRT_178_216probes =  EditVariablesDATA(SARC_M450_NoRT_178,CpG_probes_216,'Keep');
+
+Width=1.68;
+Hight = 1.6;
+
+% Figure 3i
+[p_LR,fH,stats] = MatSurv(HNSC_M450_NoRT_HPV_Neg_167_216probes.SURVIVAL.SurvTime(:,3),HNSC_M450_NoRT_HPV_Neg_167_216probes.SURVIVAL.SurvEvent(:,3),mean(HNSC_M450_NoRT_HPV_Neg_167_216probes.X,2,'omitnan'),'cutpoint','median',...
+'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
+'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
+fH.Children(1).Children(1).String = {'Low'};
+fH.Children(1).Children(2).String = {'High'};
+fH.Children(1).Children(1).FontWeight='normal';
+fH.Children(1).Children(2).FontWeight='normal';
+fH.Children(1).LineWidth=0.5;
+fH.Units = 'inches';
+fH.Position(3)=Width;fH.Position(4)=Hight;
+fH.Children(1).Position=[0.18 0.18 0.78 0.8];
+exportgraphics(fH,'Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.pdf')
+exportgraphics(fH,'Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.png','Resolution',600)
+
+% Figure 3j
+[p_LR,fH,stats] = MatSurv(PRAD_M450_NoRT_411_216probes.SURVIVAL.SurvTime(:,2),PRAD_M450_NoRT_411_216probes.SURVIVAL.SurvEvent(:,2),mean(PRAD_M450_NoRT_411_216probes.X,2,'omitnan'),'cutpoint','median',...
+'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',12,'LineWidth',0.75,'XLim',[0 60],'legend',false,'ylabel','Progression Free Probability',...
+'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','PFI by RRMS (Months)');
+fH.Children(1).Children(1).String = {'Low'};
+fH.Children(1).Children(2).String = {'High'};
+fH.Children(1).Children(1).FontWeight='normal';
+fH.Children(1).Children(2).FontWeight='normal';
+fH.Children(1).LineWidth=0.5;
+fH.Units = 'inches';
+fH.Position(3)=Width;fH.Position(4)=Hight;
+fH.Children(1).Position=[0.18 0.18 0.78 0.8];
+exportgraphics(fH,'Methylation_Score_PRAD_M450_NoRT_411_Hyper_PFI_KM_Plot.pdf')
+exportgraphics(fH,'Methylation_Score_PRAD_M450_NoRT_411_Hyper_PFI_KM_Plot.png','Resolution',600)
+
+% Figure 3k
+[p_LR,fH,stats] = MatSurv(SKCM_M450_NoRT_351_216probes.SURVIVAL.SurvTime(:,3),SKCM_M450_NoRT_351_216probes.SURVIVAL.SurvEvent(:,3),mean(SKCM_M450_NoRT_351_216probes.X,2,'omitnan'),'cutpoint','median',...
+'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
+'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
+fH.Children(1).Children(1).String = {'Low'};
+fH.Children(1).Children(2).String = {'High'};
+fH.Children(1).Children(1).FontWeight='normal';
+fH.Children(1).Children(2).FontWeight='normal';
+fH.Children(1).LineWidth=0.5;
+fH.Units = 'inches';
+fH.Position(3)=Width;fH.Position(4)=Hight;
+fH.Children(1).Position=[0.18 0.18 0.78 0.8];
+exportgraphics(fH,'Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.pdf')
+exportgraphics(fH,'Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.png','Resolution',600)
+
+% Figure 3l
+[p_LR,fH,stats] = MatSurv(BRCA_M450_NoRT_362_216probes.SURVIVAL.SurvTime(:,3),BRCA_M450_NoRT_362_216probes.SURVIVAL.SurvEvent(:,3),mean(BRCA_M450_NoRT_362_216probes.X,2,'omitnan'),'cutpoint','median','TimeMax',120,...
+'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',24,'LineWidth',0.75,'XLim',[0 120],'legend',false,'ylabel','Survival Probability',...
+'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
+fH.Children(1).Children(1).String = {'Low'};
+fH.Children(1).Children(2).String = {'High'};
+fH.Children(1).Children(1).FontWeight='normal';
+fH.Children(1).Children(2).FontWeight='normal';
+fH.Children(1).LineWidth=0.5;
+fH.Units = 'inches';
+fH.Position(3)=Width;fH.Position(4)=Hight;
+fH.Children(1).Position=[0.18 0.18 0.78 0.8];
+exportgraphics(fH,'Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.pdf')
+exportgraphics(fH,'Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.png','Resolution',600)
+
+
+% Figure 3m
+[p_LR,fH,stats] = MatSurv(SARC_M450_NoRT_178_216probes.SURVIVAL.SurvTime(:,3),SARC_M450_NoRT_178_216probes.SURVIVAL.SurvEvent(:,3),mean(SARC_M450_NoRT_178_216probes.X,2,'omitnan'),'cutpoint','median',...
+'Timeunit','Months','Print',1,'RT_KMplot',1,'BaseFontSize',5,'XStep',12,'LineWidth',0.75,'XLim',[0 60],'legend',false,'ylabel','Survival Probability',...
+'XTickFontSize',0,'YTickFontSize',0,'LegendFontSize',0,'PvalFontSize',0,'CensorLineWidth',0.5,'LineColor',GetPalette('Lancet',[2 1]),'xlabel','DSS by RRMS (Months)');
+fH.Children(1).Children(1).String = {'Low'};
+fH.Children(1).Children(2).String = {'High'};
+fH.Children(1).Children(1).FontWeight='normal';
+fH.Children(1).Children(2).FontWeight='normal';
+fH.Children(1).LineWidth=0.5;
+fH.Units = 'inches';
+fH.Position(3)=Width;fH.Position(4)=Hight;
+fH.Children(1).Position=[0.18 0.18 0.78 0.8];
+exportgraphics(fH,'Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.pdf')
+exportgraphics(fH,'Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.png','Resolution',600)
 
 
 %% Figure 4 CCLE data
