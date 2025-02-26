@@ -579,13 +579,21 @@ clear fh RESULTS_* X s indx IDs numID p_indx ph lh status Msg
 % Figure 3b GSEA analysis was done using the online tool and the results was then exported to .tsv files
 GSEA_REACTOME_Hyper_216 = Read_GSEA_File(fullfile(BaseDir,ResultDir,"GSEA_RECTOME_216_Hyper.tsv"));
 
-fh1  = GSEA_Dot_Plot(GSEA_REACTOME_Hyper_216,[],5.2,2.5, [10 20 30],'Description');
-SavePDF_AEB('GSEA_REACTOME_Hyper_216')
+fh  = GSEA_Dot_Plot(GSEA_REACTOME_Hyper_216,[],'FontSize',7,'FigSize', [5.2, 2.5], 'LegendSizeVal',[10 20 30],'MinMaxSize',[20 100],'YTickText','Description');
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3b_GSEA_REACTOME_Hyper_216.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3b_GSEA_REACTOME_Hyper_216.png'),'Resolution',png_res)
+close(fh)
 
 % Figure 3c
-GSEA_TFT_GRD_Hyper_216 = Read_GSEA_File('/Users/bergluae/AEBERGL/USR/SUNGJUNE/TCGA_Radiation/Combined_Analysis_2023/GSEA_TF/TFT_GTRD.tsv')
-fh2  = GSEA_Dot_Plot(GSEA_TFT_GRD_Hyper_216,[],4,2.5, [10 20 30],'Name');
-SavePDF_AEB('GSEA_GTRD')
+GSEA_TFT_GRD_Hyper_216 = Read_GSEA_File(fullfile(BaseDir,ResultDir,"TFT_GTRD.tsv"));
+fh  = GSEA_Dot_Plot(GSEA_TFT_GRD_Hyper_216,[],'FontSize',7,'FigSize', [4, 2.5], 'LegendSizeVal',[10 20 30],'MinMaxSize',[20 100],'YTickText','Name');
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3c_GSEA_GTRD_Hyper_216.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3c_GSEA_GTRD_Hyper_216.png'),'Resolution',png_res)
+close(fh)
+
+clear GSEA_REACTOME_Hyper_216 GSEA_TFT_GRD_Hyper_216 fh
 
 
 % KM plots using the 216 selected CpG-probes
