@@ -716,6 +716,8 @@ SKCM_M450_NoRT_351_216probes =  EditVariablesDATA(SKCM_M450_NoRT_351,CpG_probes_
 BRCA_M450_NoRT_362_216probes =  EditVariablesDATA(BRCA_M450_NoRT_362,CpG_probes_216,'Keep');
 SARC_M450_NoRT_178_216probes =  EditVariablesDATA(SARC_M450_NoRT_178,CpG_probes_216,'Keep');
 
+clear  HNSC_M450_NoRT_HPV_Neg_167 PRAD_M450_NoRT_411 SKCM_M450_NoRT_351 BRCA_M450_NoRT_362 SARC_M450_NoRT_178
+
 Width=1.68;
 Hight = 1.6;
 
@@ -731,8 +733,11 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3i_Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3i_Methylation_Score_HNSC_M450_NoRT_HPV_Neg_167_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
 
 % Figure 3j
 [p_LR,fH,stats] = MatSurv(PRAD_M450_NoRT_411_216probes.SURVIVAL.SurvTime(:,2),PRAD_M450_NoRT_411_216probes.SURVIVAL.SurvEvent(:,2),mean(PRAD_M450_NoRT_411_216probes.X,2,'omitnan'),'cutpoint','median',...
@@ -746,8 +751,11 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_PRAD_M450_NoRT_411_Hyper_PFI_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_PRAD_M450_NoRT_411_Hyper_PFI_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3j_Methylation_Score_PRAD_M450_NoRT_411_PFI_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3j_Methylation_Score_PRAD_M450_NoRT_411_PFI_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
 
 % Figure 3k
 [p_LR,fH,stats] = MatSurv(SKCM_M450_NoRT_351_216probes.SURVIVAL.SurvTime(:,3),SKCM_M450_NoRT_351_216probes.SURVIVAL.SurvEvent(:,3),mean(SKCM_M450_NoRT_351_216probes.X,2,'omitnan'),'cutpoint','median',...
@@ -761,8 +769,11 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3k_Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3k_Methylation_Score_SKCM_M450_NoRT_351_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
 
 % Figure 3l
 [p_LR,fH,stats] = MatSurv(BRCA_M450_NoRT_362_216probes.SURVIVAL.SurvTime(:,3),BRCA_M450_NoRT_362_216probes.SURVIVAL.SurvEvent(:,3),mean(BRCA_M450_NoRT_362_216probes.X,2,'omitnan'),'cutpoint','median','TimeMax',120,...
@@ -776,8 +787,10 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3l_Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3l_Methylation_Score_BRCA_M450_NoRT_362_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
 
 
 % Figure 3m
@@ -792,8 +805,40 @@ fH.Children(1).LineWidth=0.5;
 fH.Units = 'inches';
 fH.Position(3)=Width;fH.Position(4)=Hight;
 fH.Children(1).Position=[0.18 0.18 0.78 0.8];
-exportgraphics(fH,'Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.pdf')
-exportgraphics(fH,'Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.png','Resolution',600)
+fH.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3m_Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3m_Methylation_Score_SARC_M450_NoRT_178_DSS_KM_Plot.png'),'Resolution',png_res)
+close(fH)
+
+clear Width Hight fH p_LR stats HNSC_M450_NoRT_HPV_Neg_167_216probes PRAD_M450_NoRT_411_216probes SKCM_M450_NoRT_351_216probes BRCA_M450_NoRT_362_216probes SARC_M450_NoRT_178_216probes 
+
+
+% RNAseq results
+% Figure 3n
+GSEA_HNSC_RT = Read_GSEA_edb_File(fullfile(BaseDir,ResultDir,"GSEA_HNSC_RT_results.edb"),'HPV(-)HNSCC RT','Hallmark');
+GSEA_PRAD_RT = Read_GSEA_edb_File(fullfile(BaseDir,ResultDir,"GSEA_PRAD_RT_results.edb"),'PRAD RT','Hallmark');
+GSEA_SKCM_RT = Read_GSEA_edb_File(fullfile(BaseDir,ResultDir,"GSEA_SKCM_RT_results.edb"),'SKCM RT','Hallmark');
+GSEA_BRCA_RT = Read_GSEA_edb_File(fullfile(BaseDir,ResultDir,"GSEA_BRCA_RT_results.edb"),'BRCA RT','Hallmark');
+GSEA_SARC_RT = Read_GSEA_edb_File(fullfile(BaseDir,ResultDir,"GSEA_SARC_RT_results.edb"),'SARC RT','Hallmark');
+
+
+
+DATA_GSEA = Merge_DATA_Vertical(GSEA_HNSC_RT,GSEA_PRAD_RT);
+DATA_GSEA = Merge_DATA_Vertical(DATA_GSEA,GSEA_SKCM_RT);
+DATA_GSEA = Merge_DATA_Vertical(DATA_GSEA,GSEA_BRCA_RT);
+DATA_GSEA = Merge_DATA_Vertical(DATA_GSEA,GSEA_SARC_RT);
+
+[DataSets] = GroupCount(DATA_GSEA.RowAnnotation(:,2),1);
+
+fh = GSEA_DotPlot_MultiDataSets(DATA_GSEA,"Result Name",DataSets,"Short Gene Set Name" ,[],'FDR q-val','NES','FontSize',8,'FigSize',[4 7.5],'LegendSizeVal',[1 0.05 0.01 0.001 0.0001],[5 20 40 60 80] );
+fh.Renderer='painters';
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3n_GSEA_RNAseq_DotPlot.pdf'));
+exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,'Figure_3n_GSEA_RNAseq_DotPlot.png'),'Resolution',png_res)
+close(fh)
+
+exportgraphics(fh,'GSEA_DotPlot.pdf')
+exportgraphics(fh,'GSEA_DotPlot.png','Resolution',600)
+
 
 
 %% Figure 4 CCLE data
