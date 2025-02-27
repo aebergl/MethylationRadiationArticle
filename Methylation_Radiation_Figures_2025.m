@@ -849,32 +849,35 @@ load(fullfile(BaseDir,DataDir,"SARC_RNAseq_RT_57.mat"))
 
 genes={'CD3E','CD4','CD8A','CD247','GZMB','PRF1','MS4A1','CD19','CD40'};
 
-i=1;
-GeneSymbol = genes(i);
-fh = figure('Color','w','Units','inches');
-fh.Position(3:4) = [4.1 1.9];
-th = tiledlayout(fh,1,5,'TileSpacing','compact','padding','compact');
+for i=1:length(genes)
+    GeneSymbol = genes(i);
+    fh = figure('Color','w','Units','inches');
+    fh.Position(3:4) = [4.1 1.9];
+    th = tiledlayout(fh,1,5,'TileSpacing','compact','padding','compact');
+    options={'VariableIdentifier','Symbol','CalcStats',[],'MarkerSize',10,'MarkerLineWidth',0.5,'BoxLineWidth',0.5,'FontSize',6,'FigureSize',[3 2.6],'BoxWidths',0.8,'XJitterWidth',0.6,'StatType','MW','PlotStars',true,'Show_NS',true};
 
 
-ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
-options={'VariableIdentifier','Symbol','CalcStats',[],'TargetAxes',ah,'TitleText','HPV(-)HNSCC RT','MarkerSize',10,'MarkerLineWidth',0.5,'BoxLineWidth',0.5,'FontSize',6,'FigureSize',[3 2.6],'BoxWidths',0.8,'XJitterWidth',0.6,'StatType','MW','PlotStars',true,'Show_NS',true};
+    ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+    PlotBoxPlotDATA(HNSC_RNAseq_RT_HPV_Neg_187,GeneSymbol,'Methylation Group',{'low','high'},options{:},'TargetAxes',ah,'TitleText','HPV(-)HNSCC RT');
 
-PlotBoxPlotDATA(HNSC_RNAseq_RT_HPV_Neg_187,GeneSymbol,'Methylation Group',{'low','high'},options{:});
+    ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+    PlotBoxPlotDATA(PRAD_RNAseq_RT_59,GeneSymbol,'Methylation Group',{'low','high'},options{:},'TargetAxes',ah,'TitleText','PRAD RT');
 
-ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
-PlotBoxPlotDATA(PRAD_RNAseq_RT_59,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','PRAD RT');
+    ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+    PlotBoxPlotDATA(SKCM_RNAseq_RT_67,GeneSymbol,'Methylation Group',{'low','high'},options{:},'TargetAxes',ah,'TitleText','SKCM RT');
 
-ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
-PlotBoxPlotDATA(SKCM_RNAseq_RT_67,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','SKCM RT');
+    ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+    PlotBoxPlotDATA(BRCA_RNAseq_RT_360,GeneSymbol,'Methylation Group',{'low','high'},options{:},'TargetAxes',ah,'TitleText','BRCA RT');
 
-ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
-PlotBoxPlotDATA(BRCA_RNAseq_RT_360,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','BRCA RT');
-
-ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
-PlotBoxPlotDATA(SARC_RNAseq_RT_57,GeneSymbol,'Methylation Group',{'low','high'},'VariableIdentifier','Symbol','CalcStats', [],'TargetAxes',ah,'TitleText','SARC RT');
-
-exportgraphics(fh,'PRF1_BoxPlot_TCGA_RNAseq.pdf')
-exportgraphics(fh,'PRF1_BoxPlot_TCGA_RNAseq.png','Resolution',600)
+    ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
+    PlotBoxPlotDATA(SARC_RNAseq_RT_57,GeneSymbol,'Methylation Group',{'low','high'},options{:},'TargetAxes',ah,'TitleText','SARC RT');
+    
+    fh.Renderer='painters';
+    FileName = sprintf('Figure_3o_%s_BoxPlot_TCGA_RNAseq',GeneSymbol{1});
+    exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,strcat(FileName,'.pdf')));
+    exportgraphics(gcf,fullfile(PanelFigDir,FigureDir,strcat(FileName,'.png')),'Resolution',png_res)
+    close(fh)
+end
 
 
 %% Figure 4 CCLE data
