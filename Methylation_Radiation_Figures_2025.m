@@ -854,7 +854,7 @@ for i=1:length(genes)
     fh = figure('Color','w','Units','inches');
     fh.Position(3:4) = [4.1 1.9];
     th = tiledlayout(fh,1,5,'TileSpacing','compact','padding','compact');
-    options={'VariableIdentifier','Symbol','CalcStats',[],'MarkerSize',10,'MarkerLineWidth',0.5,'BoxLineWidth',0.5,'FontSize',6,'FigureSize',[3 2.6],'BoxWidths',0.8,'XJitterWidth',0.6,'StatType','MW','PlotStars',true,'Show_NS',true};
+    options={'VariableIdentifier','Symbol','CalcStats',[],'MarkerSize',10,'MarkerLineWidth',0.5,'BoxLineWidth',0.5,'FontSize',6,'FigSize',[3 2.6],'BoxWidths',0.8,'XJitterWidth',0.6,'StatType','MW','PlotStars',true,'Show_NS',true};
 
 
     ah = nexttile(th); ah.NextPlot = 'add'; ah.Box='on'; ah.FontSize = 7; ah.LineWidth = 0.5; ah.XGrid = 'on'; ah.YGrid = 'on';
@@ -967,7 +967,7 @@ sh.MarkerFaceAlpha = AlphaValue;
 box on
 xlabel('RRMS')
 ylabel({'AUC'});
-p = polyfit(x,AUC_23_Mel,1) 
+p = polyfit(x,AUC_23_Mel,1);
 f = polyval(p,x);
 hold on
 line(x,f,'Color','black');
